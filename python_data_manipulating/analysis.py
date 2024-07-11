@@ -213,11 +213,13 @@ def to_create_plots_on_fig_for_main_questions(dataframe, axes_index):
     
     count_for_vals = 0
     while count_for_vals != 3:
-        colors = ['black', 'gold', 'blue']
+        colors = ['darkgreen', 'palegreen', 'lightpink']
         sns.lineplot(data=dataframe, x='year', y=values[count_for_vals], ax=axs[axes_index], color=colors[count_for_vals], label=values[count_for_vals], legend=False)
+        axs[count_for_vals].set_xticks(dataframe['year'])
         count_for_vals += 1
     axs[axes_index].set_title(titles[axes_index])
-
+    
+    
 from matplotlib.ticker import FuncFormatter 
 def to_percent(y, position):
     return f"{y:.0f}%"
@@ -227,10 +229,7 @@ for ax in axs:
 dataframes = [df_1, df_2, df_3]    
 for ind, df in enumerate(dataframes):
     to_create_plots_on_fig_for_main_questions(df, ind)
-
-
-
-
+plt.xticks(df_1['year'])
 
 handles, labels = axs[0].get_legend_handles_labels()
 fig1.legend(handles, labels, loc='right')
@@ -327,18 +326,22 @@ for country in df_4_1['country']:
 df_4_1_best = df_4_1[df_4_1['country'].isin(best_countries.keys())]
 df_4_2_best = df_4_2[df_4_2['country'].isin(best_countries.keys())]
 df_4_3_best = df_4_3[df_4_3['country'].isin(best_countries.keys())]
-
-
+#for df_best in [df_4_1_best, df_4_2_best, df_4_3_best]:
+    #df_best.sort_values('country', inplace=True)
+    
 fig2, axs = plt.subplots(nrows=3, ncols=1, figsize=(5, 10))
 
 best_countries_dfs = [df_4_1_best, df_4_2_best, df_4_3_best]
 
 titles = ["Domestic general government health expenditure (% of general government expenditure)",
                 "Out-of-pocket expenditure (% of current health expenditure)",
-                "Domestic private health expenditure (% of current health expenditure)"]    
+                "Domestic private health expenditure (% of current health expenditure)"] 
+   
 for ind, df in enumerate(best_countries_dfs):
-    sns.barplot(data=df, x='country', y='avg_percentage', ax=axs[ind], legend=False, palette="rocket")
+    sns.barplot(data=df, x='country', y='avg_percentage', ax=axs[ind], legend=False, palette="PiYG", hue=df.sort_index(ascending=False).index)
     axs[ind].set_title(titles[ind])
+for ax in axs:
+    ax.yaxis.set_major_formatter(FuncFormatter(to_percent))
 sns.despine(bottom=True)
 plt.tight_layout()
 plt.show()
