@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt         # For creating visualizations
 import seaborn as sns
 from sqlalchemy import create_engine    # For creating SQL queries inside Python
 
+
 # Connection details to connect a database
 db_user = 'postgres'
 db_pass = 'database80836'
@@ -202,8 +203,7 @@ WHERE
 
 df_3 = pd.read_sql(question_3, engine) # dataframe for the question
 
-fig1, axs = plt.subplots(nrows=3, ncols=1, figsize=(15, 10))
-sns.set_theme(style='dark')
+fig1, axs = plt.subplots(nrows=3, ncols=1, figsize=(11, 10))
 
 def to_create_plots_on_fig_for_main_questions(dataframe, axes_index):
     values = ['est_percentage', 'avg_eu_percentage', 'avg_baltic_percentage']
@@ -229,10 +229,13 @@ for ax in axs:
 dataframes = [df_1, df_2, df_3]    
 for ind, df in enumerate(dataframes):
     to_create_plots_on_fig_for_main_questions(df, ind)
+    axs[ind].set_xlabel('')
+    axs[ind].set_ylabel('')
 plt.xticks(df_1['year'])
 
 handles, labels = axs[0].get_legend_handles_labels()
-fig1.legend(handles, labels, loc='right')
+sns.despine()
+fig1.legend(handles, labels, loc='upper left', bbox_to_anchor=(0.05 , 0.97))
 plt.tight_layout()  
 plt.show()
 
@@ -326,22 +329,27 @@ for country in df_4_1['country']:
 df_4_1_best = df_4_1[df_4_1['country'].isin(best_countries.keys())]
 df_4_2_best = df_4_2[df_4_2['country'].isin(best_countries.keys())]
 df_4_3_best = df_4_3[df_4_3['country'].isin(best_countries.keys())]
-#for df_best in [df_4_1_best, df_4_2_best, df_4_3_best]:
-    #df_best.sort_values('country', inplace=True)
+
     
-fig2, axs = plt.subplots(nrows=3, ncols=1, figsize=(5, 10))
+fig2, axs = plt.subplots(nrows=3, ncols=1, figsize=(5, 10), layout='constrained')
 
 best_countries_dfs = [df_4_1_best, df_4_2_best, df_4_3_best]
 
-titles = ["Domestic general government health expenditure (% of general government expenditure)",
-                "Out-of-pocket expenditure (% of current health expenditure)",
-                "Domestic private health expenditure (% of current health expenditure)"] 
+titles = ["Domestic general government health expenditure \n(avg last 5 year % of general government expenditure)",
+                "Out-of-pocket expenditure \n(avg last 5 year % of current health expenditure)",
+                "Domestic private health expenditure \n(avg last 5 year % of current health expenditure)"] 
    
 for ind, df in enumerate(best_countries_dfs):
-    sns.barplot(data=df, x='country', y='avg_percentage', ax=axs[ind], legend=False, palette="PiYG", hue=df.sort_index(ascending=False).index)
-    axs[ind].set_title(titles[ind])
+    sns.barplot(data=df, x='country', y='avg_percentage', ax=axs[ind], legend=False, 
+                palette="PiYG", hue=df.sort_index(ascending=False).index)
+    axs[ind].set_title(titles[ind], fontsize=11)
+    axs[ind].set_xlabel('')
+    axs[ind].set_ylabel('')
+    for i in range(len(df['country'])):
+       axs[ind].text(i, df['avg_percentage'].iloc[i], f'{df["avg_percentage"].iloc[i]:.2f}%', ha='center')
 for ax in axs:
     ax.yaxis.set_major_formatter(FuncFormatter(to_percent))
-sns.despine(bottom=True)
+
+sns.despine()
 plt.tight_layout()
 plt.show()
