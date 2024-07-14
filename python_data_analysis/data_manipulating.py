@@ -16,9 +16,6 @@ data_main = df_initial_data.melt(id_vars=['Country Name', 'Country Code', 'Serie
 # Creating separate table for Indicators with id numbers
 data_indicators = pd.read_excel(table, sheet_name='Series - Metadata')
 df_data_indicators = pd.DataFrame(data_indicators)
-'''df_data_series.index = df_data_series.index + 1
-df_data_series['Indicator Id'] = df_data_series.index'''
-#print(df_data_series[['Indicator Name', 'Long definition']])
 
 # Creating separate table for Countries
 data_countries = data_main[['Country Code', 'Country Name']]
@@ -80,7 +77,7 @@ data_indicators = data_indicators[['id', 'name', 'definition']]
 ## Countries table manipulating
 # Dropping duplicates
 data_countries.drop_duplicates(subset='Country Code', inplace=True)
-#data_countries.reset_index(drop='index', inplace=True)
+
 # Renaming columns
 data_countries.rename(columns={'Country Code': 'code', 'Country Name': 'name'}, inplace=True)    
 
