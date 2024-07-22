@@ -119,5 +119,3 @@ The project enhanced my skills in data analysis:
 - **Python** - Data manipilation with Pandas, data visualizations with Matplotlib and Seaborn
 - **SQL** - Complex query crafting including Common Table Expressions (CTEs)
 - **Database integration** - Experience in working closely with the PostgreSQL database within Python
-
-Furthermore, the research provided valuable insights that deepened my understanding of the healthcare systems in the EU and Estonia.

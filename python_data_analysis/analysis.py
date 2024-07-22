@@ -5,11 +5,11 @@ from sqlalchemy import create_engine        # For creating SQL queries inside Py
 from matplotlib.ticker import FuncFormatter # For formatting values on visualization
 
 # Connection details to connect a database
-db_user = 'postgres'
-db_pass = 'database80836'
-db_host = 'localhost'
-db_port = '5432'
-db_name = 'health_care'
+db_user = 'user'
+db_pass = 'password'
+db_host = 'host'
+db_port = 'port'
+db_name = 'database_name'
 
 connection_str = f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}" # Connection string for PostgreSQL database
 
