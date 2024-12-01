@@ -33,7 +33,7 @@ The data was taken from https://databank.worldbank.org/.
 
 ### 2.2. Data Cleaning and Manipulation
 
-The process of data cleaning and manipulation is performed in the [data manipulation file](/python_data_analysis\data_manipulating.py/). The data was manipulated and cleaned to ensure compatibility with analysis of the EU countries healthcare indicators. It also was divided into several tables to avoid overloading and facilitate management of connections between tables. The primary tool used for this process was Pandas.
+The process of data cleaning and manipulation is performed in the [data manipulation file](/python_data_analysis/data_manipulating.py/). The data was manipulated and cleaned to ensure compatibility with analysis of the EU countries healthcare indicators. It also was divided into several tables to avoid overloading and facilitate management of connections between tables. The primary tool used for this process was Pandas.
 
 ### 2.3. Database
 
@@ -41,7 +41,7 @@ The main reason of importing data into the PostgreSQL database is to test workin
 
 ## 3. Analysis
 
-The analysis process with Python and SQL queries is performed in the [analysis python file](/python_data_analysis\analysis.py/).
+The analysis process with Python and SQL queries is performed in the [analysis python file](/python_data_analysis/analysis.py/).
 
 The analysis focused on three healthcare system indicators:
  - Domestic general government health expenditure
